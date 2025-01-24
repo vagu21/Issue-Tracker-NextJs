@@ -1,5 +1,6 @@
 "use client"
-import { Button, TextField } from '@radix-ui/themes'
+import { useState } from 'react';
+import { Button, Callout, TextField } from '@radix-ui/themes'
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from 'react-hook-form';
@@ -14,8 +15,14 @@ interface IssueForm {
 const NewIssuePage = () => {
   const router = useRouter();
   const { register, control, handleSubmit } = useForm<IssueForm>();
+  const [error,setError]=useState('');
 
   return (
+<div>
+{error&& <Callout.Root color='red' className='mb-5'>
+  <Callout.Text>{error}</Callout.Text>
+  </Callout.Root>}
+
     <form 
       className='max-w-xl space-y-3' 
       onSubmit={handleSubmit(async (data) => {
@@ -24,6 +31,8 @@ const NewIssuePage = () => {
           router.push('/issues');
         } catch (error) {
           console.error(error);
+          setError('Error creating issue');
+           
         }
       })}
     >
@@ -41,6 +50,7 @@ const NewIssuePage = () => {
       
       <Button type="submit">Submit New Issue</Button>
     </form>
+    </div>
   )
 }
 

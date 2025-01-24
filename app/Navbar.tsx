@@ -23,7 +23,7 @@ const Navbar = () => {
         </Link>
 
         {/* Navigation Links */}
-        <ul className="flex space-x-6 ml-12">
+        <ul className="flex space-x-6 ml-20">
           {links.map((link) => (
             <li key={link.href}>
               <Link
